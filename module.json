@@ -16,6 +16,18 @@
   "scripts": [
     "scripts/HelloWorld.js"
   ],
+  "relationships": {
+    "systems": [
+      {
+        "id": "dnd5e",
+        "type": "system",
+        "compatibility": {
+          "minimum": "3.3.0",
+          "maximum": "3.3.9"
+        }
+      }
+    ]
+  },
   "manifest": "https://github.com/StrugglerXIV/gear-slot/blob/main/module.json",
   "download": "https://github.com/StrugglerXIV/gear-slot/blob/main/gear-slot-v0.0.1.zip"
 }
