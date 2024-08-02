@@ -1,5 +1,6 @@
 {
   "id": "gear-slot",
+  "name": "gear-slot",
   "title": "Gear Slot - A First Attempt and Foundry Module Development",
   "description": "A simple module created as a demo for working in the Foundry Virtual Tabletop framework.",
   "authors": [
