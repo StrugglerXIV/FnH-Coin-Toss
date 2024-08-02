@@ -15,5 +15,6 @@
   },
   "scripts": [
     "scripts/HelloWorld.js"
-  ]
+  ],
+  "manifest": "https://github.com/StrugglerXIV/gear-slot/blob/main/module.json"
 }
