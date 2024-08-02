@@ -19,8 +19,8 @@
 	"scripts": [
     "scripts/HelloWorld.js"
 	],
-	"manifest": "https://github.com/StrugglerXIV/gear-slot/blob/main/module.json",
+	"manifest": "https://raw.githubusercontent.com/StrugglerXIV/gear-slot/main/module.json",
 	"url": "https://github.com/StrugglerXIV/gear-slot",
-	"download": "https://github.com/StrugglerXIV/gear-slot/blob/main/gear-slot-v0.0.1.zip",
-	"readme": "https://github.com/StrugglerXIV/gear-slot/blob/main/README.md"
+	"download": "https://github.com/StrugglerXIV/gear-slot/raw/main/gear-slot-v0.0.1.zip",
+	"readme": "https://github.com/StrugglerXIV/gear-slot/raw/main/README.md"
 }
