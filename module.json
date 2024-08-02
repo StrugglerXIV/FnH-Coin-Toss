@@ -1,33 +1,26 @@
 {
-  "id": "gear-slot",
-  "name": "gear-slot",
-  "title": "Gear Slot - A First Attempt and Foundry Module Development",
-  "description": "A simple module created as a demo for working in the Foundry Virtual Tabletop framework.",
-  "authors": [
-    {
-      "name": "Kai & Struggler"
-    }
-  ],
-  "version": "0.0.1",
-  "compatibility": {
-    "minimum": "12",
-    "verified": "12"
-  },
-  "scripts": [
+	"id": "gear-slot",
+	"title": "Gear Slot",
+	"description": "A simple module created as a demo for working in the Foundry Virtual Tabletop framework.",
+	"authors": [
+		{
+			"name": "Struggler"
+		},
+		{
+			"name": "Kai"
+		}
+	],
+	"version": "0.0.1",
+	"compatibility": {
+		"minimum": 10,
+		"verified": 12
+	},
+	"socket": "true",
+	"scripts": [
     "scripts/HelloWorld.js"
-  ],
-  "relationships": {
-    "systems": [
-      {
-        "id": "dnd5e",
-        "type": "system",
-        "compatibility": {
-          "minimum": "3.3.0",
-          "maximum": "3.3.9"
-        }
-      }
-    ]
-  },
-  "manifest": "https://github.com/StrugglerXIV/gear-slot/blob/main/module.json",
-  "download": "https://github.com/StrugglerXIV/gear-slot/blob/main/gear-slot-v0.0.1.zip"
+	],
+	"manifest": "https://github.com/StrugglerXIV/gear-slot/blob/main/module.json",
+	"url": "https://github.com/StrugglerXIV/gear-slot",
+	"download": "https://github.com/StrugglerXIV/gear-slot/blob/main/gear-slot-v0.0.1.zip",
+	"readme": "https://github.com/StrugglerXIV/gear-slot/blob/main/README.md"
 }
