@@ -21,6 +21,6 @@
 	],
 	"manifest": "https://raw.githubusercontent.com/StrugglerXIV/gear-slot/main/module.json",
 	"url": "https://github.com/StrugglerXIV/gear-slot",
-	"download": "https://github.com/theripper93/Patrol/releases/download/0.6.2/module.zip",
+	"download": "https://github.com/StrugglerXIV/gear-slot/raw/main/gear-slot.zip",
 	"readme": "https://github.com/StrugglerXIV/gear-slot/raw/main/README.md"
 }
