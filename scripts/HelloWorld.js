@@ -7,3 +7,20 @@ Hooks.on("init", function() {
 Hooks.on("ready", function() {
   console.log("This code runs once core initialization is ready and game data is available.");
 });
+
+
+Hooks.on("getSceneControlButtons", (controls) => {
+  if (game.user.isGM) {
+      const basictools = controls.find((x) => x["name"] == "token").tools;
+      basictools.push(
+          {
+              button: true,
+              visible: true,
+              icon: "Test Icon",
+              name: "Test Icon",
+              title: "Test Icon",
+              onClick: () => {},
+          },
+      );
+  }
+});

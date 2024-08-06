@@ -17,7 +17,7 @@
 	},
 	"socket": "true",
 	"scripts": [
-    "scripts/HelloWorld.js"
+		"scripts/HelloWorld.js"
 	],
 	"manifest": "https://raw.githubusercontent.com/StrugglerXIV/gear-slot/main/module.json",
 	"url": "https://github.com/StrugglerXIV/gear-slot",
