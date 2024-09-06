@@ -29,8 +29,8 @@
       "path": "lang/en.json"
     }
   ],
-	"manifest": "https://github.com/StrugglerXIV/FnH-Coin-Toss/blob/v0.1/module.json",
+	"manifest": "https://raw.githubusercontent.com/StrugglerXIV/FnH-Coin-Toss/main/module.json",
 	"url": "https://github.com/StrugglerXIV/FnH-Coin-Toss/tree/v0.1",
 	"download": "https://github.com/StrugglerXIV/FnH-Coin-Toss/archive/refs/tags/v0.1.zip",
-	"readme": "https://github.com/StrugglerXIV/FnH-Coin-Toss/blob/v0.1/README.md"
+	"readme": "https://raw.githubusercontent.com/StrugglerXIV/FnH-Coin-Toss/main/README.md"
 }
