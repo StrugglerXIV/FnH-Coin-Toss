@@ -124,22 +124,31 @@ function showCoinChoiceDialog() {
     `,
     buttons: {},  // No buttons because we will handle image clicks
     render: (html) => {
+      // Set the dialog size to fixed 400x400
+      html.closest('.dialog').css({
+        "width": "400px",
+        "height": "200px"
+      });
+
+      // Handle the choice of heads or tails
       html.find("#heads-choice").click(() => {
-        // Player chose heads
         coinFlip("heads");
         ui.notifications.info("You chose Heads.");
-        closeDialog();  // Close the dialog after the choice
+        closeDialog();
       });
 
       html.find("#tails-choice").click(() => {
-        // Player chose tails
         coinFlip("tails");
         ui.notifications.info("You chose Tails.");
-        closeDialog();  // Close the dialog after the choice
+        closeDialog();
       });
     }
   }).render(true);
 }
+
+
+
+
 
 // Function to close the dialog
 function closeDialog() {
