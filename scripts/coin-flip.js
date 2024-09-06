@@ -1,5 +1,5 @@
 Hooks.once('ready', () => {
-  console.log("Coin Flip Module Loaded!");
+  console.log("FnH Coin Toss Module Loaded!");
 });
 
 // Function to handle the coin flip
@@ -8,8 +8,8 @@ function coinFlip() {
   roll.roll({async: true}).then(result => {
     let resultTotal = result.total;
 
-    let videoHeads = "modules/coin-flip-module/assets/Heads.mp4";
-    let videoTails = "modules/coin-flip-module/assets/Tails.mp4";
+    let videoHeads = "modules/FnH-Coin-Toss/assets/Heads.mp4";
+    let videoTails = "modules/FnH-Coin-Toss/assets/Tails.mp4";
 
     let videoToPlay = resultTotal === 1 ? videoHeads : videoTails;
     let resultText = resultTotal === 1 ? "Heads" : "Tails";
