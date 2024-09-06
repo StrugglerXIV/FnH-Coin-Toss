@@ -1,8 +1,10 @@
 Hooks.once('ready', () => {
   console.log("FnH Coin Toss Module Loaded!");
+
+  // Listen for the socket event for coin flip
   game.socket.on("module.FnH-Coin-Toss", (data) => {
     if (data.type === "coinFlip") {
-      playCoinFlipVideo(data.resultTotal);
+      playCoinFlipVideo(data.resultTotal, data.senderId);
     }
   });
 });
@@ -16,15 +18,16 @@ function coinFlip() {
     // Broadcast the result to all players
     game.socket.emit("module.FnH-Coin-Toss", {
       type: "coinFlip",
-      resultTotal: resultTotal
+      resultTotal: resultTotal,
+      senderId: game.user.id // Send the ID of the user who initiated the coin flip
     });
 
-    playCoinFlipVideo(resultTotal);
+    playCoinFlipVideo(resultTotal, game.user.id);
   });
 }
 
 // Function to display the video
-function playCoinFlipVideo(resultTotal) {
+function playCoinFlipVideo(resultTotal, senderId) {
   let videoHeads = "modules/FnH-Coin-Toss/assets/Heads.mp4";
   let videoTails = "modules/FnH-Coin-Toss/assets/Tails.mp4";
 
@@ -55,16 +58,18 @@ function playCoinFlipVideo(resultTotal) {
 
   videoElement.addEventListener("ended", () => {
     document.body.removeChild(overlay);
+    
+    // Only the player who initiated the coin flip sends the chat message
+    if (game.user.id === senderId) {
+      ChatMessage.create({
+        speaker: ChatMessage.getSpeaker(),
+        content: `The coin flip result is: <strong>${resultText}</strong>`
+      });
+    }
   });
 
   overlay.addEventListener("click", () => {
     document.body.removeChild(overlay);
-  });
-
-  // Send the result to chat
-  ChatMessage.create({
-    speaker: ChatMessage.getSpeaker(),
-    content: `The coin flip result is: <strong>${resultText}</strong>`
   });
 }
 
