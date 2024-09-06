@@ -4,15 +4,15 @@ Hooks.once('ready', () => {
   // Listen for the socket event for coin flip and overlay removal
   game.socket.on("module.FnH-Coin-Toss", (data) => {
     if (data.type === "coinFlip") {
-      playCoinFlipVideo(data.resultTotal, data.senderId);
+      playCoinFlipVideo(data.resultTotal, data.senderId, data.playerChoice);
     } else if (data.type === "removeOverlay") {
       removeOverlay();
     }
   });
 });
 
-// Function to handle the coin flip
-function coinFlip() {
+// Function to handle the coin flip and player's choice
+function coinFlip(playerChoice) {
   let roll = new Roll('1d2').evaluate({ async: false });
   let resultTotal = roll.total;
 
@@ -20,19 +20,21 @@ function coinFlip() {
   game.socket.emit("module.FnH-Coin-Toss", {
     type: "coinFlip",
     resultTotal: resultTotal,
-    senderId: game.user.id // Send the ID of the user who initiated the coin flip
+    senderId: game.user.id,
+    playerChoice: playerChoice  // Send the player's choice
   });
 
-  playCoinFlipVideo(resultTotal, game.user.id);
+  playCoinFlipVideo(resultTotal, game.user.id, playerChoice);
 }
 
 // Function to display the video
-function playCoinFlipVideo(resultTotal, senderId) {
+function playCoinFlipVideo(resultTotal, senderId, playerChoice) {
   let videoHeads = "modules/FnH-Coin-Toss/assets/Heads.mp4";
   let videoTails = "modules/FnH-Coin-Toss/assets/Tails.mp4";
 
   let videoToPlay = resultTotal === 1 ? videoHeads : videoTails;
   let resultText = resultTotal === 1 ? "Heads" : "Tails";
+  let guessedCorrectly = (resultText.toLowerCase() === playerChoice.toLowerCase());
 
   // Create a dark overlay and the full-screen video element
   let overlay = document.createElement("div");
@@ -56,11 +58,15 @@ function playCoinFlipVideo(resultTotal, senderId) {
   overlay.appendChild(videoElement);
   document.body.appendChild(overlay);
 
-  // Function to send the chat message
+  // Function to send the chat message based on the result
   function sendChatMessage() {
+    let message = guessedCorrectly 
+      ? "Your body surges in adrenaline, you are now hasted."
+      : "Your mind can not handle this much terror.";
+
     ChatMessage.create({
       speaker: ChatMessage.getSpeaker(),
-      content: `The coin flip result is: <strong>${resultText}</strong>`
+      content: message
     });
   }
 
@@ -100,17 +106,53 @@ function playCoinFlipVideo(resultTotal, senderId) {
 
 // Ensure the `removeOverlay` function is defined in the global scope
 function removeOverlay() {
-  // Only remove overlay if it exists in the document
-  let overlay = document.querySelector('div[style*="fixed"]'); // Assumes overlay uses fixed positioning
+  let overlay = document.querySelector('div[style*="fixed"]');
   if (overlay) {
     document.body.removeChild(overlay);
   }
 }
 
-// Chat command to trigger the coin flip
+// Function to create a popup for heads or tails choice
+function showCoinChoiceDialog() {
+  new Dialog({
+    title: "Choose Heads or Tails",
+    content: `
+      <div style="display: flex; justify-content: space-around;">
+        <img src="modules/FnH-Coin-Toss/assets/Heads.png" id="heads-choice" style="cursor: pointer; max-width: 150px;" />
+        <img src="modules/FnH-Coin-Toss/assets/Tails.png" id="tails-choice" style="cursor: pointer; max-width: 150px;" />
+      </div>
+    `,
+    buttons: {},  // No buttons because we will handle image clicks
+    render: (html) => {
+      html.find("#heads-choice").click(() => {
+        // Player chose heads
+        coinFlip("heads");
+        ui.notifications.info("You chose Heads.");
+        closeDialog();  // Close the dialog after the choice
+      });
+
+      html.find("#tails-choice").click(() => {
+        // Player chose tails
+        coinFlip("tails");
+        ui.notifications.info("You chose Tails.");
+        closeDialog();  // Close the dialog after the choice
+      });
+    }
+  }).render(true);
+}
+
+// Function to close the dialog
+function closeDialog() {
+  let dialog = document.querySelector('.dialog');
+  if (dialog) {
+    dialog.remove();
+  }
+}
+
+// Chat command to trigger the coin flip choice dialog
 Hooks.on('chatMessage', (chatLog, messageText, chatData) => {
   if (messageText === "/coinflip") {
-    coinFlip();
+    showCoinChoiceDialog();
     return false;  // Prevent the default chat behavior
   }
 });
