@@ -1,7 +1,7 @@
 {
-	"id": "gear-slot",
-	"title": "Gear Slot",
-	"description": "A simple module created as a demo for working in the Foundry Virtual Tabletop framework.",
+	"id": "FnH-Coin-Toss",
+	"title": "FnH Coin Toss",
+	"description": "A simple module for flipping a coin with a heads or tails video based on the Fear and Hunger game.",
 	"authors": [
 		{
 			"name": "Struggler"
@@ -12,15 +12,25 @@
 	],
 	"version": "0.0.1",
 	"compatibility": {
-		"minimum": 10,
+		"minimum": 12,
 		"verified": 12
 	},
 	"socket": "true",
 	"scripts": [
-		"scripts/HelloWorld.js"
-	],
-	"manifest": "https://raw.githubusercontent.com/StrugglerXIV/gear-slot/main/module.json",
-	"url": "https://github.com/StrugglerXIV/gear-slot",
-	"download": "https://github.com/StrugglerXIV/gear-slot/raw/main/gear-slot.zip",
-	"readme": "https://github.com/StrugglerXIV/gear-slot/raw/main/README.md"
+    "scripts/coin-flip.js"
+  ],
+  "styles": [
+    "styles/styles.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+	"manifest": "https://raw.githubusercontent.com/StrugglerXIV/FnH-Coin-Toss/main/module.json",
+	"url": "https://github.com/StrugglerXIV/FnH-Coin-Toss",
+	"download": "https://github.com/StrugglerXIV/FnH-Coin-Toss/raw/main/FnH-Coin-Toss_v0.1.zip",
+	"readme": "https://github.com/StrugglerXIV/FnH-Coin-Toss/raw/main/README.md"
 }
