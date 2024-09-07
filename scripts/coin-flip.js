@@ -125,24 +125,27 @@ function playCoinFlipVideo(resultTotal, senderId, playerChoice, isGlobal) {
       ChatMessage.create({ speaker: ChatMessage.getSpeaker(), content: message });
   }
 
-  // Ensure message is sent only once
-  let messageSent = false;
-  function finalize() {
-      if (!messageSent) {
-          sendChatMessage();
-          messageSent = true;
-      }
-      removeOverlay();
-  }
-
-  // When the video ends, finalize and clean up
-  videoElement.addEventListener("ended", () => {
-    console.log("Video ended");
-    if (game.user.id === senderId || isGlobal) {
-        finalize();
-        // Notify other players to remove the overlay
-        game.socket.emit("module.FnH-Coin-Toss", { type: "removeOverlay" });
+// Ensure message is sent only once
+let messageSent = false;
+function finalize() {
+    if (!messageSent) {
+        // Only send the message if the player is the one who initiated the coin flip
+        if (game.user.id === senderId || isGlobal) {
+            sendChatMessage();
+        }
+        messageSent = true;
     }
+    removeOverlay();
+}
+
+// When the video ends, finalize and clean up
+videoElement.addEventListener("ended", () => {
+  console.log("Video ended");
+  if (game.user.id === senderId || isGlobal) {
+      finalize();
+      // Notify other players to remove the overlay
+      game.socket.emit("module.FnH-Coin-Toss", { type: "removeOverlay" });
+  }
 });
 
 // Allow clicking the overlay to remove it early
