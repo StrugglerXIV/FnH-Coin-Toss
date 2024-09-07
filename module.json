@@ -10,7 +10,7 @@
 			"name": "Remi"
 		}
 	],
-	"version": "0.0.101",
+	"version": "0.0.102",
 	"compatibility": {
 		"minimum": 12,
 		"verified": 12
@@ -37,6 +37,6 @@
 	],
 	"manifest": "https://raw.githubusercontent.com/StrugglerXIV/FnH-Coin-Toss/main/module.json",
 	"url": "https://github.com/StrugglerXIV/FnH-Coin-Toss/tree/main",
-	"download": "https://github.com/StrugglerXIV/FnH-Coin-Toss/archive/refs/tags/v0.101.zip",
+	"download": "https://github.com/StrugglerXIV/FnH-Coin-Toss/archive/refs/tags/v0.102.zip",
 	"readme": "https://raw.githubusercontent.com/StrugglerXIV/FnH-Coin-Toss/main/README.md"
 }
