@@ -58,6 +58,14 @@ Hooks.once('ready', () => {
   });
 });
 
+  // Remove overlay after video ends or is clicked
+  function removeOverlay() {
+    const existingOverlay = document.querySelector('.overlay');
+    if (existingOverlay) {
+        existingOverlay.remove();
+    }
+}
+
 // Function to initiate the coin flip
 async function coinFlip(playerChoice) {
   let roll = await new Roll('1d2').evaluate({ async: true });
@@ -117,14 +125,6 @@ function playCoinFlipVideo(resultTotal, senderId, playerChoice, isGlobal) {
       ChatMessage.create({ speaker: ChatMessage.getSpeaker(), content: message });
   }
 
-  // Remove overlay after video ends or is clicked
-  function removeOverlay() {
-      const existingOverlay = document.querySelector('.overlay');
-      if (existingOverlay) {
-          existingOverlay.remove();
-      }
-  }
-
   // Ensure message is sent only once
   let messageSent = false;
   function finalize() {
@@ -137,8 +137,8 @@ function playCoinFlipVideo(resultTotal, senderId, playerChoice, isGlobal) {
 
   // When the video ends, finalize and clean up
   videoElement.addEventListener("ended", () => {
-      console.log("Video ended");
-      if (game.user.id === senderId || isGlobal) {
+    console.log("Video ended");
+    if (game.user.id === senderId || isGlobal) {
         finalize();
         // Notify other players to remove the overlay
         game.socket.emit("module.FnH-Coin-Toss", { type: "removeOverlay" });
@@ -147,12 +147,12 @@ function playCoinFlipVideo(resultTotal, senderId, playerChoice, isGlobal) {
 
 // Allow clicking the overlay to remove it early
 overlay.addEventListener("click", () => {
-    console.log("Overlay clicked");
-    if (game.user.id === senderId || isGlobal) {
-        finalize();
-        // Notify other players to remove the overlay
-        game.socket.emit("module.FnH-Coin-Toss", { type: "removeOverlay" });
-    }
+  console.log("Overlay clicked");
+  if (game.user.id === senderId || isGlobal) {
+      finalize();
+      // Notify other players to remove the overlay
+      game.socket.emit("module.FnH-Coin-Toss", { type: "removeOverlay" });
+  }
 });
 }
 
@@ -200,4 +200,3 @@ if (messageText === "/coinflip") {
     return false; // Prevents the message from being sent to chat
 }
 });
-
