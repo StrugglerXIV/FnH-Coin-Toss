@@ -2,6 +2,31 @@
 
 window.FnHCoinToss = window.FnHCoinToss || {};
 
+
+// Define the coinFlip function within the FnHCoinToss namespace
+FnHCoinToss.coinFlip = async function(playerChoice) {
+    try {
+        // Roll a die to simulate coin flip (1d2)
+        let roll = await new Roll('1d2').evaluate({ async: true });
+        let resultTotal = roll.total;
+
+        console.log("Coin flip result:", resultTotal);
+
+        // Send the result to all players to show the video
+        game.socket.emit("module.FnH-Coin-Toss", {
+            type: "playCoinFlipVideo",
+            resultTotal: resultTotal,
+            senderId: game.user.id,
+            playerChoice: playerChoice
+        });
+
+        // Show the video for the local player immediately
+        FnHCoinToss.playCoinFlipVideo(resultTotal, game.user.id, playerChoice, false);
+    } catch (error) {
+        console.error("Error during coin flip:", error);
+    }
+};
+
 FnHCoinToss.showCoinChoiceDialog = function () {
     new Dialog({
         title: "Choose Heads or Tails",
