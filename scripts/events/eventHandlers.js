@@ -1,13 +1,15 @@
-import { playCoinFlipVideo, removeOverlay, showCoinChoiceDialog } from '../utils/media.js';
+// scripts/events/eventHandlers.js
 
-export function setupSocketListeners() {
+FnHCoinToss.setupSocketListeners = function() {
     game.socket.on("module.FnH-Coin-Toss", (data) => {
+        console.log("Received socket event:", data);
+
         if (data.type === "showCoinChoiceDialog" && game.user.id === data.userId) {
-            showCoinChoiceDialog();
+            FnHCoinToss.showCoinChoiceDialog();
         } else if (data.type === "playCoinFlipVideo") {
-            playCoinFlipVideo(data.resultTotal, data.senderId, data.playerChoice, true);
+            FnHCoinToss.playCoinFlipVideo(data.resultTotal, data.senderId, data.playerChoice, true);
         } else if (data.type === "removeOverlay") {
-            removeOverlay();
+            FnHCoinToss.removeOverlay();
         }
     });
-}
+};

@@ -1,16 +1,14 @@
-import { monitorAllPlayerActors } from './utils/hpMonitor.js';
-import { setupSocketListeners } from './events/eventHandlers.js';
-import { addChatCommand } from './events/chatCommands.js';
+// scripts/main.js
 
+// Initialize the global namespace
+window.FnHCoinToss = window.FnHCoinToss || {};
+
+// Once Foundry is ready, initialize the module
 Hooks.once('ready', () => {
     console.log("FnH Coin Toss Module Loaded!");
 
-    // Monitor HP for all player-owned actors
-    monitorAllPlayerActors();
-
-    // Setup socket listeners for coin toss events
-    setupSocketListeners();
-
-    // Add custom chat commands
-    addChatCommand();
+    // Initialize various parts of the module
+    FnHCoinToss.monitorAllPlayerActors();
+    FnHCoinToss.setupSocketListeners();
+    FnHCoinToss.addChatCommand();
 });
