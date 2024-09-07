@@ -20,7 +20,8 @@
     "scripts/coin-flip.js"
   ],
   "styles": [
-    "styles/styles.css"
+    "styles/styles.css",
+	"css/style.css"
   ],
   "languages": [
     {

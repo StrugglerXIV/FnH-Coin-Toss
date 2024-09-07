@@ -1,9 +1,10 @@
+// Hook into Foundry's 'ready' event
 Hooks.once('ready', () => {
   // Import CSS
-  $('head').append(`<link rel="stylesheet" type="text/css" href="modules/FnH-Coin-Toss/CSS/style.css">`);
+  $('head').append(`<link rel="stylesheet" type="text/css" href="modules/FnH-Coin-Toss/css/style.css">`);
   
   console.log("FnH Coin Toss Module Loaded!");
-  
+
   // Listen for the socket event for coin flip and overlay removal
   game.socket.on("module.FnH-Coin-Toss", (data) => {
     if (data.type === "coinFlip") {
@@ -14,10 +15,9 @@ Hooks.once('ready', () => {
   });
 });
 
-
 // Function to handle the coin flip and player's choice
-function coinFlip(playerChoice) {
-  let roll = new Roll('1d2').evaluate({ async: false });
+async function coinFlip(playerChoice) {
+  let roll = await new Roll('1d2').evaluate({ async: true });
   let resultTotal = roll.total;
 
   // Broadcast the result to all players
@@ -33,29 +33,28 @@ function coinFlip(playerChoice) {
 
 // Function to display the video
 function playCoinFlipVideo(resultTotal, senderId, playerChoice) {
-  let videoHeads = "modules/FnH-Coin-Toss/assets/Heads.mp4";
-  let videoTails = "modules/FnH-Coin-Toss/assets/Tails.mp4";
+  const videoHeads = "modules/FnH-Coin-Toss/assets/Heads.mp4";
+  const videoTails = "modules/FnH-Coin-Toss/assets/Tails.mp4";
 
-  let videoToPlay = resultTotal === 1 ? videoHeads : videoTails;
-  let resultText = resultTotal === 1 ? "Heads" : "Tails";
-  let guessedCorrectly = (resultText.toLowerCase() === playerChoice.toLowerCase());
+  const videoToPlay = resultTotal === 1 ? videoHeads : videoTails;
+  const resultText = resultTotal === 1 ? "Heads" : "Tails";
+  const guessedCorrectly = (resultText.toLowerCase() === playerChoice.toLowerCase());
 
-// Create a dark overlay and the full-screen video element
-let overlay = document.createElement("div");
-overlay.classList.add("overlay");
+  // Create a dark overlay and the full-screen video element
+  const overlay = document.createElement("div");
+  overlay.classList.add("overlay");
 
-let videoElement = document.createElement("video");
-videoElement.src = videoToPlay;
-videoElement.autoplay = true;
-videoElement.classList.add("videoElement");
+  const videoElement = document.createElement("video");
+  videoElement.src = videoToPlay;
+  videoElement.autoplay = true;
+  videoElement.classList.add("videoElement");
 
-overlay.appendChild(videoElement);
-document.body.appendChild(overlay);
-
+  overlay.appendChild(videoElement);
+  document.body.appendChild(overlay);
 
   // Function to send the chat message based on the result
   function sendChatMessage() {
-    let message = guessedCorrectly 
+    const message = guessedCorrectly 
       ? "Your body surges in adrenaline, you are now hasted."
       : "Your mind can not handle this much terror.";
 
@@ -99,9 +98,9 @@ document.body.appendChild(overlay);
   });
 }
 
-// Ensure the `removeOverlay` function is defined in the global scope
+// Ensure the `removeOverlay` function is defined globally
 function removeOverlay() {
-  let overlay = document.querySelector('div[style*="fixed"]');
+  let overlay = document.querySelector(".overlay");
   if (overlay) {
     document.body.removeChild(overlay);
   }
@@ -112,38 +111,40 @@ function showCoinChoiceDialog() {
   new Dialog({
     title: "Choose Heads or Tails",
     content: `
-  <div style="display: flex; justify-content: space-around;">
-    <img src="modules/FnH-Coin-Toss/assets/Heads.png" id="heads-choice" class="cursor-pointer" />
-    <img src="modules/FnH-Coin-Toss/assets/Tails.png" id="tails-choice" class="cursor-pointer" />
-  </div>
-`,
-render: (html) => {
-  // Set the dialog size using CSS class
-  html.closest('.dialog').addClass('dialog-size');
+      <div style="display: flex; justify-content: space-around;">
+        <img src="modules/FnH-Coin-Toss/assets/Heads.png" id="heads-choice" class="cursor-pointer" />
+        <img src="modules/FnH-Coin-Toss/assets/Tails.png" id="tails-choice" class="cursor-pointer" />
+      </div>
+    `,
+    buttons: {}, // No buttons, handling clicks via render
+    render: (html) => {
+      const dialogElement = html.closest('.dialog');
+      if (dialogElement) {
+        dialogElement.css({
+          "width": "400px",
+          "height": "200px"
+        });
+      }
 
-  // Handle the choice of heads or tails
-  html.find("#heads-choice").click(() => {
-    coinFlip("heads");
-    ui.notifications.info("You chose Heads.");
-    closeDialog();
-  });
+      // Handle the choice of heads or tails
+      html.find("#heads-choice").click(() => {
+        coinFlip("heads");
+        ui.notifications.info("You chose Heads.");
+        closeDialog();
+      });
 
-  html.find("#tails-choice").click(() => {
-    coinFlip("tails");
-    ui.notifications.info("You chose Tails.");
-    closeDialog();
-  });
-}
+      html.find("#tails-choice").click(() => {
+        coinFlip("tails");
+        ui.notifications.info("You chose Tails.");
+        closeDialog();
+      });
+    }
   }).render(true);
 }
 
-
-
-
-
-// Function to close the dialog
+// Function to close the dialog properly
 function closeDialog() {
-  let dialog = document.querySelector('.dialog');
+  const dialog = document.querySelector('.dialog');
   if (dialog) {
     dialog.remove();
   }
