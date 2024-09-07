@@ -10,20 +10,19 @@
             "name": "Remi"
         }
     ],
-    "version": "0.0.103",
+    "version": "0.0.104",
     "compatibility": {
         "minimum": 12,
         "verified": 12
     },
     "socket": "true",
     "scripts": [
-        "scripts/utils/coinFlip.js",
-        "scripts/utils/media.js",
-        "scripts/utils/hpMonitor.js",
-        "scripts/events/eventHandlers.js",
-        "scripts/events/chatCommands.js",
-        "scripts/main.js"
-    ],
+    "scripts/main.js",
+    "scripts/hpMonitor.js",
+    "scripts/socketListeners.js",
+    "scripts/chatCommands.js",
+    "scripts/media.js"
+],
     "styles": [
         "styles/styles.css",
         "css/style.css"
@@ -37,6 +36,6 @@
     ],
     "manifest": "https://raw.githubusercontent.com/StrugglerXIV/FnH-Coin-Toss/main/module.json",
     "url": "https://github.com/StrugglerXIV/FnH-Coin-Toss/tree/main",
-    "download": "https://github.com/StrugglerXIV/FnH-Coin-Toss/archive/refs/tags/v0.103.zip",
+    "download": "https://github.com/StrugglerXIV/FnH-Coin-Toss/archive/refs/tags/v0.104.zip",
     "readme": "https://raw.githubusercontent.com/StrugglerXIV/FnH-Coin-Toss/main/README.md"
 }

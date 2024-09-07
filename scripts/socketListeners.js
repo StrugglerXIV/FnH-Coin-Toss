@@ -1,6 +1,8 @@
-// scripts/events/eventHandlers.js
+// scripts/socketListeners.js
 
-FnHCoinToss.setupSocketListeners = function() {
+window.FnHCoinToss = window.FnHCoinToss || {};
+
+FnHCoinToss.setupSocketListeners = function () {
     game.socket.on("module.FnH-Coin-Toss", (data) => {
         console.log("Received socket event:", data);
 
