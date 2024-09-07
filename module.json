@@ -17,19 +17,24 @@
 	},
 	"socket": "true",
 	"scripts": [
-    "scripts/coin-flip.js"
-  ],
-  "styles": [
-    "styles/styles.css",
-	"css/style.css"
-  ],
-  "languages": [
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "lang/en.json"
-    }
-  ],
+		"scripts/main.js",
+		"scripts/utils/coinFlip.js",
+		"scripts/utils/hpMonitor.js",
+		"scripts/utils/media.js",
+		"scripts/events/eventHandlers.js",
+		"scripts/events/chatCommands.js"
+	],
+	"styles": [
+		"styles/styles.css",
+		"css/style.css"
+	],
+	"languages": [
+		{
+			"lang": "en",
+			"name": "English",
+			"path": "lang/en.json"
+		}
+	],
 	"manifest": "https://raw.githubusercontent.com/StrugglerXIV/FnH-Coin-Toss/main/module.json",
 	"url": "https://github.com/StrugglerXIV/FnH-Coin-Toss/tree/main",
 	"download": "https://github.com/StrugglerXIV/FnH-Coin-Toss/archive/refs/tags/v0.101.zip",
