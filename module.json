@@ -7,10 +7,10 @@
 			"name": "Struggler"
 		},
 		{
-			"name": "Kai"
+			"name": "Remi"
 		}
 	],
-	"version": "0.0.8",
+	"version": "0.0.9",
 	"compatibility": {
 		"minimum": 12,
 		"verified": 12
@@ -20,7 +20,8 @@
     "scripts/coin-flip.js"
   ],
   "styles": [
-    "styles/styles.css"
+    "styles/styles.css",
+	"css/style.css"
   ],
   "languages": [
     {
@@ -31,6 +32,6 @@
   ],
 	"manifest": "https://raw.githubusercontent.com/StrugglerXIV/FnH-Coin-Toss/main/module.json",
 	"url": "https://github.com/StrugglerXIV/FnH-Coin-Toss/tree/main",
-	"download": "https://github.com/StrugglerXIV/FnH-Coin-Toss/archive/refs/tags/v0.8.zip",
+	"download": "https://github.com/StrugglerXIV/FnH-Coin-Toss/archive/refs/tags/v0.9.zip",
 	"readme": "https://raw.githubusercontent.com/StrugglerXIV/FnH-Coin-Toss/main/README.md"
 }
