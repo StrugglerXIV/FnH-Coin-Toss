@@ -10,7 +10,7 @@
 			"name": "Kai"
 		}
 	],
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"compatibility": {
 		"minimum": 12,
 		"verified": 12
@@ -31,6 +31,6 @@
   ],
 	"manifest": "https://raw.githubusercontent.com/StrugglerXIV/FnH-Coin-Toss/main/module.json",
 	"url": "https://github.com/StrugglerXIV/FnH-Coin-Toss/tree/main",
-	"download": "https://github.com/StrugglerXIV/FnH-Coin-Toss/archive/refs/tags/v0.7.zip",
+	"download": "https://github.com/StrugglerXIV/FnH-Coin-Toss/archive/refs/tags/v0.8.zip",
 	"readme": "https://raw.githubusercontent.com/StrugglerXIV/FnH-Coin-Toss/main/README.md"
 }
