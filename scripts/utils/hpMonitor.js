@@ -1,6 +1,6 @@
-import { showCoinChoiceDialog } from './media.js';
+// scripts/utils/hpMonitor.js
 
-function monitorActorHP(actor) {
+FnHCoinToss.monitorActorHP = function(actor) {
     let previousHp = actor.system.attributes.hp.value;
 
     Hooks.on('updateActor', (actorDoc, updateData) => {
@@ -10,6 +10,9 @@ function monitorActorHP(actor) {
 
             let user = game.users.find(u => u.character?.id === actor.id);
             if (user && user.active) {
+                console.log(`${user.name} is the owner and is active. Triggering coin flip...`);
+
+                // Trigger coin choice dialog for the player
                 game.socket.emit("module.FnH-Coin-Toss", {
                     type: "showCoinChoiceDialog",
                     userId: user.id
@@ -18,12 +21,13 @@ function monitorActorHP(actor) {
         }
         previousHp = newHp;
     });
-}
+};
 
-export function monitorAllPlayerActors() {
+FnHCoinToss.monitorAllPlayerActors = function() {
     game.actors.forEach(actor => {
         if (actor.hasPlayerOwner) {
-            monitorActorHP(actor);
+            console.log(`Monitoring HP for player-controlled character: ${actor.name}`);
+            FnHCoinToss.monitorActorHP(actor);
         }
     });
-}
+};
