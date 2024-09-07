@@ -1,6 +1,9 @@
 Hooks.once('ready', () => {
+  // Import CSS
+  $('head').append(`<link rel="stylesheet" type="text/css" href="modules/FnH-Coin-Toss/CSS/style.css">`);
+  
   console.log("FnH Coin Toss Module Loaded!");
-
+  
   // Listen for the socket event for coin flip and overlay removal
   game.socket.on("module.FnH-Coin-Toss", (data) => {
     if (data.type === "coinFlip") {
@@ -10,6 +13,7 @@ Hooks.once('ready', () => {
     }
   });
 });
+
 
 // Function to handle the coin flip and player's choice
 function coinFlip(playerChoice) {
@@ -36,27 +40,18 @@ function playCoinFlipVideo(resultTotal, senderId, playerChoice) {
   let resultText = resultTotal === 1 ? "Heads" : "Tails";
   let guessedCorrectly = (resultText.toLowerCase() === playerChoice.toLowerCase());
 
-  // Create a dark overlay and the full-screen video element
-  let overlay = document.createElement("div");
-  overlay.style.position = "fixed";
-  overlay.style.top = "0";
-  overlay.style.left = "0";
-  overlay.style.width = "100%";
-  overlay.style.height = "100%";
-  overlay.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
-  overlay.style.zIndex = "10000";
-  overlay.style.display = "flex";
-  overlay.style.alignItems = "center";
-  overlay.style.justifyContent = "center";
+// Create a dark overlay and the full-screen video element
+let overlay = document.createElement("div");
+overlay.classList.add("overlay");
 
-  let videoElement = document.createElement("video");
-  videoElement.src = videoToPlay;
-  videoElement.autoplay = true;
-  videoElement.style.maxWidth = "90%";
-  videoElement.style.maxHeight = "90%";
+let videoElement = document.createElement("video");
+videoElement.src = videoToPlay;
+videoElement.autoplay = true;
+videoElement.classList.add("videoElement");
 
-  overlay.appendChild(videoElement);
-  document.body.appendChild(overlay);
+overlay.appendChild(videoElement);
+document.body.appendChild(overlay);
+
 
   // Function to send the chat message based on the result
   function sendChatMessage() {
@@ -117,32 +112,28 @@ function showCoinChoiceDialog() {
   new Dialog({
     title: "Choose Heads or Tails",
     content: `
-      <div style="display: flex; justify-content: space-around;">
-        <img src="modules/FnH-Coin-Toss/assets/Heads.png" id="heads-choice" style="cursor: pointer; max-width: 150px;" />
-        <img src="modules/FnH-Coin-Toss/assets/Tails.png" id="tails-choice" style="cursor: pointer; max-width: 150px;" />
-      </div>
-    `,
-    buttons: {},  // No buttons because we will handle image clicks
-    render: (html) => {
-      // Set the dialog size to fixed 400x400
-      html.closest('.dialog').css({
-        "width": "400px",
-        "height": "200px"
-      });
+  <div style="display: flex; justify-content: space-around;">
+    <img src="modules/FnH-Coin-Toss/assets/Heads.png" id="heads-choice" class="cursor-pointer" />
+    <img src="modules/FnH-Coin-Toss/assets/Tails.png" id="tails-choice" class="cursor-pointer" />
+  </div>
+`,
+render: (html) => {
+  // Set the dialog size using CSS class
+  html.closest('.dialog').addClass('dialog-size');
 
-      // Handle the choice of heads or tails
-      html.find("#heads-choice").click(() => {
-        coinFlip("heads");
-        ui.notifications.info("You chose Heads.");
-        closeDialog();
-      });
+  // Handle the choice of heads or tails
+  html.find("#heads-choice").click(() => {
+    coinFlip("heads");
+    ui.notifications.info("You chose Heads.");
+    closeDialog();
+  });
 
-      html.find("#tails-choice").click(() => {
-        coinFlip("tails");
-        ui.notifications.info("You chose Tails.");
-        closeDialog();
-      });
-    }
+  html.find("#tails-choice").click(() => {
+    coinFlip("tails");
+    ui.notifications.info("You chose Tails.");
+    closeDialog();
+  });
+}
   }).render(true);
 }
 
