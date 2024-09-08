@@ -1,8 +1,4 @@
-// scripts/hpMonitor.js
-
-window.FnHCoinToss = window.FnHCoinToss || {};
-
-function monitorActorHP(actor) {
+export function monitorActorHP(actor) {
     let previousHp = actor.system.attributes.hp.value;
 
     Hooks.on('updateActor', (actorDoc, updateData) => {
@@ -24,10 +20,10 @@ function monitorActorHP(actor) {
     });
 }
 
-FnHCoinToss.monitorAllPlayerActors = function () {
+export function monitorAllPlayerActors() {
     game.actors.forEach(actor => {
         if (actor.hasPlayerOwner) {
             monitorActorHP(actor);
         }
     });
-};
+}
