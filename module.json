@@ -1,41 +1,27 @@
 {
     "id": "FnH-Coin-Toss",
     "title": "FnH Coin Toss",
-    "description": "A simple module for flipping a coin with a heads or tails video based on the Fear and Hunger game.",
+    "description": "A simple module for flipping a coin with a heads or tails video.",
     "authors": [
-        {
-            "name": "Struggler"
-        },
-        {
-            "name": "Remi"
-        }
+      {
+        "name": "Struggler"
+      }
     ],
-    "version": "0.0.105",
+    "version": "0.0.106",
     "compatibility": {
-        "minimum": 12,
-        "verified": 12
+      "minimum": 12,
+      "verified": 12
     },
     "socket": "true",
     "scripts": [
-    "scripts/main.js",
-    "scripts/hpMonitor.js",
-    "scripts/socketListeners.js",
-    "scripts/chatCommands.js",
-    "scripts/media.js"
-],
-    "styles": [
-        "styles/styles.css",
-        "css/style.css"
+      "dist/bundle.js"
     ],
-    "languages": [
-        {
-            "lang": "en",
-            "name": "English",
-            "path": "lang/en.json"
-        }
+    "styles": [
+      "styles/styles.css"
     ],
     "manifest": "https://raw.githubusercontent.com/StrugglerXIV/FnH-Coin-Toss/main/module.json",
-    "url": "https://github.com/StrugglerXIV/FnH-Coin-Toss/tree/main",
-    "download": "https://github.com/StrugglerXIV/FnH-Coin-Toss/archive/refs/tags/v0.105.zip",
+    "url": "https://github.com/StrugglerXIV/FnH-Coin-Toss",
+    "download": "https://github.com/StrugglerXIV/FnH-Coin-Toss/archive/refs/tags/v0.106.zip",
     "readme": "https://raw.githubusercontent.com/StrugglerXIV/FnH-Coin-Toss/main/README.md"
-}
+  }
+  

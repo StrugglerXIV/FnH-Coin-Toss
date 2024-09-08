@@ -1,33 +1,7 @@
-// scripts/media.js
+import { coinFlip } from './coinFlip.js';
 
-window.FnHCoinToss = window.FnHCoinToss || {};
-
-
-// Define the coinFlip function within the FnHCoinToss namespace
-FnHCoinToss.coinFlip = async function(playerChoice) {
-    try {
-        // Roll a die to simulate coin flip (1d2)
-        let roll = await new Roll('1d2').evaluate({ async: true });
-        let resultTotal = roll.total;
-
-        console.log("Coin flip result:", resultTotal);
-
-        // Send the result to all players to show the video
-        game.socket.emit("module.FnH-Coin-Toss", {
-            type: "playCoinFlipVideo",
-            resultTotal: resultTotal,
-            senderId: game.user.id,
-            playerChoice: playerChoice
-        });
-
-        // Show the video for the local player immediately
-        FnHCoinToss.playCoinFlipVideo(resultTotal, game.user.id, playerChoice, false);
-    } catch (error) {
-        console.error("Error during coin flip:", error);
-    }
-};
-
-FnHCoinToss.showCoinChoiceDialog = function () {
+export function showCoinChoiceDialog() {
+    console.log("FnHCoinToss: Coin flip function is loaded");
     new Dialog({
         title: "Choose Heads or Tails",
         content: `
@@ -41,21 +15,21 @@ FnHCoinToss.showCoinChoiceDialog = function () {
         buttons: {},
         render: (html) => {
             html.find("#heads-choice").click(() => {
-                FnHCoinToss.coinFlip("heads");
+                coinFlip("heads");
                 ui.notifications.info("You chose Heads.");
-                FnHCoinToss.closeDialog();
+                closeDialog();
             });
 
             html.find("#tails-choice").click(() => {
-                FnHCoinToss.coinFlip("tails");
+                coinFlip("tails");
                 ui.notifications.info("You chose Tails.");
-                FnHCoinToss.closeDialog();
+                closeDialog();
             });
         }
     }).render(true);
-};
+}
 
-FnHCoinToss.playCoinFlipVideo = function (resultTotal, senderId, playerChoice, isGlobal) {
+export function playCoinFlipVideo(resultTotal, senderId, playerChoice, isGlobal) {
     const videoHeads = "modules/FnH-Coin-Toss/assets/Heads.mp4";
     const videoTails = "modules/FnH-Coin-Toss/assets/Tails.mp4";
     const videoToPlay = resultTotal === 1 ? videoHeads : videoTails;
@@ -86,26 +60,26 @@ FnHCoinToss.playCoinFlipVideo = function (resultTotal, senderId, playerChoice, i
 
     videoElement.addEventListener("ended", () => {
         sendChatMessage();
-        FnHCoinToss.removeOverlay();
+        removeOverlay();
         game.socket.emit("module.FnH-Coin-Toss", { type: "removeOverlay" });
     });
 
     videoElement.addEventListener("error", () => {
         console.error("Error playing video:", videoElement.src);
-        FnHCoinToss.removeOverlay();
+        removeOverlay();
     });
-};
+}
 
-FnHCoinToss.removeOverlay = function () {
+export function removeOverlay() {
     const existingOverlay = document.querySelector('.overlay');
     if (existingOverlay) {
         existingOverlay.remove();
     }
-};
+}
 
-FnHCoinToss.closeDialog = function () {
+export function closeDialog() {
     const dialog = document.querySelector(".dialog");
     if (dialog) {
         dialog.remove();
     }
-};
+}

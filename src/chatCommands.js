@@ -1,16 +1,14 @@
-// scripts/chatCommands.js
-
-window.FnHCoinToss = window.FnHCoinToss || {};
+import { showCoinChoiceDialog } from './media.js';
 
 Hooks.once('ready', () => {
-    FnHCoinToss.addChatCommand();
+    addChatCommand();
 });
 
-FnHCoinToss.addChatCommand = function () {
+export function addChatCommand() {
     Hooks.on('chatMessage', (chatLog, messageText) => {
         if (messageText === "/coinflip") {
-            FnHCoinToss.showCoinChoiceDialog();
+            showCoinChoiceDialog();
             return false; // Prevents the message from being sent to chat
         }
     });
-};
+}
