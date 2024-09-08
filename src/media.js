@@ -1,7 +1,12 @@
 import { coinFlip } from './coinFlip.js';
 
+let messageSent = false; // Flag to track if the message has been sent
+
 export function showCoinChoiceDialog() {
     console.log("FnHCoinToss: Coin flip function is loaded");
+    // Reset the messageSent flag when a new dialog is opened
+    messageSent = false;
+    
     new Dialog({
         title: "Choose Heads or Tails",
         content: `
@@ -50,16 +55,11 @@ export function playCoinFlipVideo(resultTotal, senderId, playerChoice, isGlobal)
     overlay.appendChild(videoElement);
     document.body.appendChild(overlay);
 
-    function sendChatMessage() {
-        const message = guessedCorrectly 
-            ? "Your body surges in adrenaline, you are now hasted."
-            : "Your mind cannot handle this much terror.";
-        
-        ChatMessage.create({ speaker: ChatMessage.getSpeaker(), content: message });
-    }
-
     videoElement.addEventListener("ended", () => {
-        sendChatMessage();
+        if (!messageSent) {
+            sendChatMessage(guessedCorrectly);
+            messageSent = true; // Set the flag to true to avoid multiple messages
+        }
         removeOverlay();
         game.socket.emit("module.FnH-Coin-Toss", { type: "removeOverlay" });
     });
@@ -81,5 +81,25 @@ export function closeDialog() {
     const dialog = document.querySelector(".dialog");
     if (dialog) {
         dialog.remove();
+    }
+}
+
+// Function to handle sending the message
+function sendChatMessage(guessedCorrectly) {
+    const gm = game.users.find(user => user.isGM);
+
+    if (gm) {
+        const message = guessedCorrectly 
+            ? "Your body surges in adrenaline, you are now hasted."
+            : "Your mind cannot handle this much terror.";
+
+        ChatMessage.create({
+            speaker: {
+                alias: gm.name // Display the GM's name
+            },
+            content: message
+        });
+    } else {
+        console.error("No GM user found.");
     }
 }
